@@ -1,0 +1,82 @@
+# setup vsc on ubuntu vm
+sudo apt update
+sudo apt install software-properties-common apt-transport-https wget
+wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+sudo apt update
+sudo apt install code
+code
+
+#set up python
+sudo apt update
+python3 --version
+sudo apt install python3
+sudo apt install python3-pip
+python3 --version
+pip3 --version
+
+#virtual env
+sudo apt install python3-venv
+python3 -m venv venv_name
+source venv_name/bin/activate
+
+#clone github
+cd ~
+git clone https://github.com/Vikas098766/Microservices.git
+cd Microservices
+
+#install dependecies and req.txt
+cd ~/path/to/downloads/microservices
+pip install -r requirements.txt
+pip list
+
+#train ds
+import joblib
+from sklearn.linear_model import LogisticRegression
+
+# Load and preprocess your dataset
+# X, y = load_and_preprocess_data()
+
+# Create and train the model
+model = LogisticRegression()
+# model.fit(X_train, y_train)
+
+# Save the trained model using joblib
+joblib.dump(model, 'trained_model.pkl'
+
+#test and flask
+from flask import Flask
+
+app = Flask(_name_)
+
+@app.route('/')
+def ok_bye():
+    return 'ok, bye!'
+
+if _name_ == '_main_':
+    app.run(debug=True, host='0.0.0.0'
+            python3 app.py
+
+#test app predict
+    import requests
+    def test_predict():
+        url = "http://localhost:5000/predict"
+        data = {"feature": 1.23}  # Replace with your input data
+        response = requests.post(url, json=data)
+        assert response.status_code == 200
+        result = response.json()
+        assert "prediction" in result
+
+#docker img
+FROM python:3
+WORKDIR /app
+COPY . /app
+RUN pip3 install -r requirements.txt
+EXPOSE 5000
+CMD ["python3", "app.py"]
+#img
+docker build -t myapp
+
+#run container app
+docker run -p 5000:5000 myapp
+
